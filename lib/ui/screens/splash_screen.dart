@@ -10,9 +10,11 @@ class SplashScreen extends StatelessWidget {
     );
 
     return Container(
-      color: AppColors.white,
-      child: Center(
-        child: Image.asset("assets/images/logo.png"),
+      color: AppColors.blue50,
+      child: Expanded(
+        child: Center(
+          child: Image.asset("assets/images/logo.png"),
+        ),
       ),
     );
   }
