@@ -16,8 +16,8 @@ class AppThemes {
   static ThemeData darkAppTheme = appTheme.copyWith(brightness: Brightness.light);
 
   static SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(
-    systemNavigationBarColor: AppColors.white,
-    statusBarColor: AppColors.white,
+    systemNavigationBarColor: AppColors.blue50,
+    statusBarColor: AppColors.blue50,
     statusBarIconBrightness: Brightness.dark
   );
 }
