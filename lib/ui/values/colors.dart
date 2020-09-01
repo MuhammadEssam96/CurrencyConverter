@@ -8,6 +8,7 @@ class AppColors {
   static const Color grayLight = Color(0xFFE7E7E7);
 
   //Material Design blue colors
+  static const Color blue50 = Color(0xFFE3F2FD);
   static const Color blue400 = Color(0xFF5C6BC0);
   static const Color blue700 = Color(0xFF303F9F);
   static const Color blue900 = Color(0xFF1A237E);
