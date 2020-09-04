@@ -39,18 +39,20 @@ class HomeScreen extends StatelessWidget {
                   CurrencySelectorAndNumberFieldWidget(CurrencyWidgetType.To),
                 ],
               ),
-              Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  NumPadRowWidget(["1", "2", "3"]),
-                  SizedBox(height: 16.0),
-                  NumPadRowWidget(["4", "5", "6"]),
-                  SizedBox(height: 16.0),
-                  NumPadRowWidget(["7", "8", "9"]),
-                  SizedBox(height: 16.0),
-                  NumPadRowWidget([".", "0", "<"]),
-                ],
+              SafeArea(
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    NumPadRowWidget(["1", "2", "3"]),
+                    SizedBox(height: 16.0),
+                    NumPadRowWidget(["4", "5", "6"]),
+                    SizedBox(height: 16.0),
+                    NumPadRowWidget(["7", "8", "9"]),
+                    SizedBox(height: 16.0),
+                    NumPadRowWidget([".", "0", "<"]),
+                  ],
+                ),
               )
             ],
           )
