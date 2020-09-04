@@ -1,5 +1,7 @@
+import 'package:currency_converter/cubit/number_field_cubit.dart';
 import 'package:currency_converter/ui/values/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class NumPadButtonWidget extends StatelessWidget {
   final String text;
@@ -23,8 +25,36 @@ class NumPadButtonWidget extends StatelessWidget {
           ),
         ) : Icon(Icons.backspace, color: AppColors.white,),
         onPressed: (){
+          text == "<" ? pressEraseButton(context) : text == "." ? pressDotButton(context) : pressButton(context);
         },
       )
     );
   }
+
+  void pressButton(BuildContext context){
+    final numberFieldCubit = BlocProvider.of<NumberFieldCubit>(context);
+    if (numberFieldCubit.state is NumberFieldInitialState) {
+      numberFieldCubit.addFirstNumber(text);
+    } else {
+      String currentNumber = numberFieldCubit.state.number;
+      numberFieldCubit.addNumber(currentNumber, text);
+    }
+  }
+
+  void pressEraseButton(BuildContext context) {
+    final numberFieldCubit = BlocProvider.of<NumberFieldCubit>(context);
+    final number = numberFieldCubit.state.number;
+
+    numberFieldCubit.erase(number);
+  }
+
+  void pressDotButton(BuildContext context){
+    final numberFieldCubit = BlocProvider.of<NumberFieldCubit>(context);
+    if (numberFieldCubit.state is NumberFieldInitialState) {
+      numberFieldCubit.addDot("0");
+    }
+    numberFieldCubit.addDot(numberFieldCubit.state.number);
+  }
 }
+
+
