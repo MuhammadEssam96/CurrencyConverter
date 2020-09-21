@@ -1,5 +1,8 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:currency_converter/cubit/number_field_cubit.dart';
+import 'package:currency_converter/cubits/result_field_cubit.dart';
+import 'package:currency_converter/data/models/currency.dart';
+import 'package:currency_converter/cubits/number_field_cubit.dart';
+import 'package:currency_converter/cubits/currency_cubit.dart';
 import 'package:currency_converter/ui/values/colors.dart';
 import 'package:currency_pickers/country.dart';
 import 'package:currency_pickers/currency_pickers.dart';
@@ -60,7 +63,12 @@ class CurrencySelectorAndNumberFieldWidget extends StatelessWidget {
                     );
                   },
                   onValuePicked: (Country country) {
-
+                    Currency currency = Currency(country.currencyCode);
+                    if (currencyWidgetType == CurrencyWidgetType.From){
+                      BlocProvider.of<OriginalCurrencyCubit>(context).pickAnotherCurrency(currency);
+                    } else {
+                      BlocProvider.of<ConvertedCurrencyCubit>(context).pickAnotherCurrency(currency);
+                    }
                   },
                 ),
               ],
@@ -87,11 +95,28 @@ class CurrencySelectorAndNumberFieldWidget extends StatelessWidget {
                   ),
                 );
               }
-            ) : Text(
-              "sth",
-              style: TextStyle(
-                fontSize: 36.0
-              ),
+            ) : BlocBuilder<ResultFieldCubit, ResultFieldState>(
+              builder: (context, state){
+                String text;
+                if (state is ResultFieldInitialState) {
+                  text = "0";
+                } else if (state is ResultFieldErrorState){
+                  text = "0";
+                  //TODO: show snackbar for error
+                } else {
+                  text = state.number;
+                }
+                return Expanded(
+                  child: AutoSizeText(
+                    text,
+                    maxLines: 1,
+                    style: TextStyle(
+                      fontSize: 36.0,
+                    ),
+                    textDirection: TextDirection.rtl,
+                  ),
+                );
+              }
             )
           ],
         ),
