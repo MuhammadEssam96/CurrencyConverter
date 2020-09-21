@@ -1,4 +1,4 @@
-import 'package:currency_converter/cubit/number_field_cubit.dart';
+import 'package:currency_converter/cubits/number_field_cubit.dart';
 import 'package:currency_converter/ui/values/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
