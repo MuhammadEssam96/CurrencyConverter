@@ -42,6 +42,7 @@ abstract class NumberFieldState {
 
 class NumberFieldInitialState extends NumberFieldState {
   const NumberFieldInitialState();
+  String get number => "0";
 }
 
 class NumberFieldEditedState extends NumberFieldState {
