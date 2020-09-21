@@ -17,11 +17,11 @@ class ConvertRateCubit extends Cubit<ConvertRateState>{
 
     try {
       await http.get(
-          "https://$host/exchange?q=1.0&from=$fromCurrency&to=$toCurrency",
-          headers: {
-            "x-rapidapi-host" : host,
-            "x-rapidapi-key" : apiKey,
-          }
+        "https://$host/exchange?q=1.0&from=$fromCurrency&to=$toCurrency",
+        headers: {
+          "x-rapidapi-host" : host,
+          "x-rapidapi-key" : apiKey,
+        }
       ).then((response) => _response(response));
 
     } on SocketException {
@@ -41,7 +41,7 @@ class ConvertRateCubit extends Cubit<ConvertRateState>{
         throw BadRequestException(response.body.toString());
       case 401:
       case 403:
-      emit(ConvertRateErrorState());
+        emit(ConvertRateErrorState());
         throw UnauthorisedException(response.body.toString());
       case 500:
       default:

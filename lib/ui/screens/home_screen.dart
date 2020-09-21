@@ -37,21 +37,7 @@ class HomeScreen extends StatelessWidget {
                   CurrencySelectorAndNumberFieldWidget(CurrencyWidgetType.From),
                   IconButton(
                     icon: Icon(Icons.swap_vert),
-                    onPressed: () async {
-                      final numberFieldCubit = BlocProvider.of<NumberFieldCubit>(context);
-                      final convertRateCubitFieldCubit = BlocProvider.of<ConvertRateCubit>(context);
-                      final resultFieldCubit = BlocProvider.of<ResultFieldCubit>(context);
-
-                      await convertRateCubitFieldCubit.getConvertRate(
-                        BlocProvider.of<OriginalCurrencyCubit>(context).state.currency.currencyCode,
-                        BlocProvider.of<ConvertedCurrencyCubit>(context).state.currency.currencyCode,
-                      );
-
-                      resultFieldCubit.showResult(
-                        from: numberFieldCubit.state.number,
-                        rate: convertRateCubitFieldCubit.state.convertRate.convertRate.toString()
-                      );
-                    },
+                    onPressed: () async => convertCurrencies(context)
                   ),
                   CurrencySelectorAndNumberFieldWidget(CurrencyWidgetType.To),
                 ],
@@ -75,6 +61,22 @@ class HomeScreen extends StatelessWidget {
           )
         ),
       ),
+    );
+  }
+
+  Future<void> convertCurrencies(BuildContext context) async {
+    final numberFieldCubit = BlocProvider.of<NumberFieldCubit>(context);
+    final convertRateCubitFieldCubit = BlocProvider.of<ConvertRateCubit>(context);
+    final resultFieldCubit = BlocProvider.of<ResultFieldCubit>(context);
+
+    await convertRateCubitFieldCubit.getConvertRate(
+      BlocProvider.of<OriginalCurrencyCubit>(context).state.currency.currencyCode,
+      BlocProvider.of<ConvertedCurrencyCubit>(context).state.currency.currencyCode,
+    );
+
+    resultFieldCubit.showResult(
+        from: numberFieldCubit.state.number,
+        rate: convertRateCubitFieldCubit.state.convertRate.convertRate.toString()
     );
   }
 }
