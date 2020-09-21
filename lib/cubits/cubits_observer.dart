@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 
-class NumberFieldObserver extends BlocObserver {
+class CubitsObserver extends BlocObserver {
   @override
   void onChange(Cubit cubit, Change change) {
     print("${cubit.runtimeType} $change");
