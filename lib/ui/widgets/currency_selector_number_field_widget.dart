@@ -80,7 +80,6 @@ class CurrencySelectorAndNumberFieldWidget extends StatelessWidget {
                   text = "0";
                 } else if (state is NumberFieldMaxLimitReachedError){
                   text = state.number;
-                  //TODO: show snackbar for error
                 }  else {
                   text = state.number;
                 }
@@ -102,7 +101,6 @@ class CurrencySelectorAndNumberFieldWidget extends StatelessWidget {
                   text = "0";
                 } else if (state is ResultFieldErrorState){
                   text = "0";
-                  //TODO: show snackbar for error
                 } else {
                   text = state.number;
                 }
