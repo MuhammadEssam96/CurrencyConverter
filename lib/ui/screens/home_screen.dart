@@ -1,8 +1,6 @@
 import 'package:currency_converter/cubits/convert_rate_cubit.dart';
-import 'package:currency_converter/cubits/currency_cubit.dart';
-import 'package:currency_converter/cubits/number_field_cubit.dart';
-import 'package:currency_converter/cubits/result_field_cubit.dart';
 import 'package:currency_converter/ui/values/colors.dart';
+import 'package:currency_converter/ui/widgets/convert_button_widget.dart';
 import 'package:currency_converter/ui/widgets/currency_selector_number_field_widget.dart';
 import 'package:currency_converter/ui/widgets/num_pad_row_widget.dart';
 import 'package:flutter/material.dart';
@@ -35,11 +33,26 @@ class HomeScreen extends StatelessWidget {
               Column(
                 children: [
                   CurrencySelectorAndNumberFieldWidget(CurrencyWidgetType.From),
-                  IconButton(
-                    icon: Icon(Icons.swap_vert),
-                    onPressed: () async => convertCurrencies(context)
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Icon(Icons.swap_vert,),
                   ),
                   CurrencySelectorAndNumberFieldWidget(CurrencyWidgetType.To),
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: BlocBuilder<ConvertRateCubit, ConvertRateState>(
+                      builder: (context, state) {
+                        if (state is ConvertRateLoadingState){
+                          return Padding(
+                            padding: const EdgeInsets.only(top: 8.0),
+                            child: CircularProgressIndicator(),
+                          );
+                        } else {
+                          return ConvertButton();
+                        }
+                      }
+                    ),
+                  )
                 ],
               ),
               SafeArea(
@@ -61,22 +74,6 @@ class HomeScreen extends StatelessWidget {
           )
         ),
       ),
-    );
-  }
-
-  Future<void> convertCurrencies(BuildContext context) async {
-    final numberFieldCubit = BlocProvider.of<NumberFieldCubit>(context);
-    final convertRateCubitFieldCubit = BlocProvider.of<ConvertRateCubit>(context);
-    final resultFieldCubit = BlocProvider.of<ResultFieldCubit>(context);
-
-    await convertRateCubitFieldCubit.getConvertRate(
-      BlocProvider.of<OriginalCurrencyCubit>(context).state.currency.currencyCode,
-      BlocProvider.of<ConvertedCurrencyCubit>(context).state.currency.currencyCode,
-    );
-
-    resultFieldCubit.showResult(
-        from: numberFieldCubit.state.number,
-        rate: convertRateCubitFieldCubit.state.convertRate.convertRate.toString()
     );
   }
 }
