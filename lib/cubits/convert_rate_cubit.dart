@@ -15,6 +15,8 @@ class ConvertRateCubit extends Cubit<ConvertRateState>{
       return;
     }
 
+    emit(ConvertRateLoadingState());
+
     try {
       await http.get(
         "https://$host/exchange?q=1.0&from=$fromCurrency&to=$toCurrency",
@@ -25,6 +27,7 @@ class ConvertRateCubit extends Cubit<ConvertRateState>{
       ).then((response) => _response(response));
 
     } on SocketException {
+      emit(ConvertRateErrorState());
       throw FetchDataException('No Internet connection');
     }
   }
