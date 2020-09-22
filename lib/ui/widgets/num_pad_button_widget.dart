@@ -11,8 +11,8 @@ class NumPadButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 72,
-      height: 72,
+      width: 64,
+      height: 64,
       child: RawMaterialButton(
         fillColor: text != "<" ? AppColors.white : AppColors.redA700,
         shape: CircleBorder(),
@@ -20,7 +20,7 @@ class NumPadButtonWidget extends StatelessWidget {
         child: text != "<" ? Text(
           text,
           style: TextStyle(
-            fontSize: 24,
+            fontSize: 36,
             color: AppColors.blue400
           ),
         ) : Icon(Icons.backspace, color: AppColors.white,),
