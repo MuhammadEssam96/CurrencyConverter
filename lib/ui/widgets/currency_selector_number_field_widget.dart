@@ -9,7 +9,7 @@ import 'package:currency_pickers/currency_pickers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-enum CurrencyWidgetType {From, To}
+enum CurrencyWidgetType {from, to}
 
 class CurrencySelectorAndNumberFieldWidget extends StatelessWidget {
   final CurrencyWidgetType currencyWidgetType;
@@ -20,10 +20,10 @@ class CurrencySelectorAndNumberFieldWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     String type;
     switch (currencyWidgetType) {
-      case CurrencyWidgetType.From:
+      case CurrencyWidgetType.from:
         type = "From";
         break;
-      case CurrencyWidgetType.To:
+      case CurrencyWidgetType.to:
         type = "To    ";
     }
     return Container(
@@ -32,39 +32,37 @@ class CurrencySelectorAndNumberFieldWidget extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.white,
         borderRadius: BorderRadius.circular(50),
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
             color: AppColors.blue400,
-            blurRadius: 7
+            blurRadius: 7,
           ),
         ]
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24.0),
         child: Row(
-          mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Row(
               children: [
                 Text(type),
-                SizedBox(width: 8.0,),
+                const SizedBox(width: 8.0,),
                 CurrencyPickerDropdown(
                   initialValue: "EG",
                   itemBuilder: (Country country){
-                    return Container(
-                      child: Row(
-                        children: <Widget>[
-                          CurrencyPickerUtils.getDefaultFlagImage(country),
-                          SizedBox(width: 8.0,),
-                          Text("${country.currencyCode}"),
-                        ],
-                      ),
+                    final String currencyCode = country.currencyCode;
+                    return Row(
+                      children: <Widget>[
+                        CurrencyPickerUtils.getDefaultFlagImage(country),
+                        const SizedBox(width: 8.0,),
+                        Text(currencyCode),
+                      ],
                     );
                   },
                   onValuePicked: (Country country) {
-                    Currency currency = Currency(country.currencyCode);
-                    if (currencyWidgetType == CurrencyWidgetType.From){
+                    final Currency currency = Currency(country.currencyCode);
+                    if (currencyWidgetType == CurrencyWidgetType.from){
                       BlocProvider.of<OriginalCurrencyCubit>(context).pickAnotherCurrency(currency);
                     } else {
                       BlocProvider.of<ConvertedCurrencyCubit>(context).pickAnotherCurrency(currency);
@@ -73,7 +71,7 @@ class CurrencySelectorAndNumberFieldWidget extends StatelessWidget {
                 ),
               ],
             ),
-            currencyWidgetType == CurrencyWidgetType.From ? BlocBuilder<NumberFieldCubit, NumberFieldState>(
+            if (currencyWidgetType == CurrencyWidgetType.from) BlocBuilder<NumberFieldCubit, NumberFieldState>(
               builder: (context, state){
                 String text;
                 if (state is NumberFieldInitialState) {
@@ -87,14 +85,14 @@ class CurrencySelectorAndNumberFieldWidget extends StatelessWidget {
                   child: AutoSizeText(
                     text,
                     maxLines: 1,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 36.0,
                     ),
                     textDirection: TextDirection.rtl,
                   ),
                 );
               }
-            ) : BlocBuilder<ResultFieldCubit, ResultFieldState>(
+            ) else BlocBuilder<ResultFieldCubit, ResultFieldState>(
               builder: (context, state){
                 String text;
                 if (state is ResultFieldInitialState) {
@@ -108,7 +106,7 @@ class CurrencySelectorAndNumberFieldWidget extends StatelessWidget {
                   child: AutoSizeText(
                     text,
                     maxLines: 1,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 36.0,
                     ),
                     textDirection: TextDirection.rtl,

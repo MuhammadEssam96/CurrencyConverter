@@ -10,23 +10,23 @@ class NumPadButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: 64,
       height: 64,
       child: RawMaterialButton(
         fillColor: text != "<" ? AppColors.white : AppColors.redA700,
-        shape: CircleBorder(),
+        shape: const CircleBorder(),
         elevation: 6,
-        child: text != "<" ? Text(
-          text,
-          style: TextStyle(
-            fontSize: 36,
-            color: AppColors.blue400
-          ),
-        ) : Icon(Icons.backspace, color: AppColors.white,),
         onPressed: (){
           text == "<" ? pressEraseButton(context) : text == "." ? pressDotButton(context) : pressButton(context);
         },
+        child: text != "<" ? Text(
+          text,
+          style: const TextStyle(
+            fontSize: 36,
+            color: AppColors.blue400
+          ),
+        ) : const Icon(Icons.backspace, color: AppColors.white,),
       )
     );
   }
@@ -36,7 +36,7 @@ class NumPadButtonWidget extends StatelessWidget {
     if (numberFieldCubit.state is NumberFieldInitialState) {
       numberFieldCubit.addFirstNumber(text);
     } else {
-      String currentNumber = numberFieldCubit.state.number;
+      final String currentNumber = numberFieldCubit.state.number;
       numberFieldCubit.addNumber(currentNumber, text);
     }
   }

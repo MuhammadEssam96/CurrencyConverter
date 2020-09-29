@@ -15,7 +15,7 @@ class HomeScreen extends StatelessWidget {
         backgroundColor: AppColors.blue50,
         brightness: Brightness.light,
         elevation: 0.0,
-        title: Text(
+        title: const Text(
           "Currency Converter",
           style: TextStyle(
             color: AppColors.blue400
@@ -27,24 +27,23 @@ class HomeScreen extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: Center(
           child: Column(
-            mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Column(
                 children: [
-                  CurrencySelectorAndNumberFieldWidget(CurrencyWidgetType.From),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
+                  const CurrencySelectorAndNumberFieldWidget(CurrencyWidgetType.from),
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
                     child: Icon(Icons.swap_vert,),
                   ),
-                  CurrencySelectorAndNumberFieldWidget(CurrencyWidgetType.To),
+                  const CurrencySelectorAndNumberFieldWidget(CurrencyWidgetType.to),
                   Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: BlocBuilder<ConvertRateCubit, ConvertRateState>(
                       builder: (context, state) {
                         if (state is ConvertRateLoadingState){
-                          return Padding(
-                            padding: const EdgeInsets.only(top: 8.0),
+                          return const Padding(
+                            padding: EdgeInsets.only(top: 8.0),
                             child: CircularProgressIndicator(),
                           );
                         } else {
@@ -57,9 +56,8 @@ class HomeScreen extends StatelessWidget {
               ),
               SafeArea(
                 child: Column(
-                  mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
+                  children: const [
                     NumPadRowWidget(["1", "2", "3"]),
                     SizedBox(height: 16.0),
                     NumPadRowWidget(["4", "5", "6"]),

@@ -5,13 +5,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 
 class ConvertRateCubit extends Cubit<ConvertRateState>{
-  ConvertRateCubit() : super(ConvertRateInitialState());
+  ConvertRateCubit() : super(const ConvertRateInitialState());
   static String host = ConvertRateAPI.host;
   static String apiKey = ConvertRateAPI.apiKey;
 
   Future<void> getConvertRate(String fromCurrency, String toCurrency) async {
     if (fromCurrency == toCurrency){
-      emit(ConvertRateNewState(ConvertRate(1)));
+      emit(const ConvertRateNewState(ConvertRate(1)));
       return;
     }
 
@@ -35,8 +35,8 @@ class ConvertRateCubit extends Cubit<ConvertRateState>{
   void _response(http.Response response) {
     switch (response.statusCode) {
       case 200:
-        var responseJson = double.parse(response.body);
-        ConvertRate convertRate = ConvertRate(responseJson);
+        final responseJson = double.parse(response.body);
+        final ConvertRate convertRate = ConvertRate(responseJson);
         emit(ConvertRateNewState(convertRate));
         break;
       case 400:
@@ -56,7 +56,7 @@ class ConvertRateCubit extends Cubit<ConvertRateState>{
 
 abstract class ConvertRateState {
   const ConvertRateState();
-  ConvertRate get convertRate => ConvertRate(1);
+  ConvertRate get convertRate => const ConvertRate(1);
 }
 
 class ConvertRateInitialState extends ConvertRateState {

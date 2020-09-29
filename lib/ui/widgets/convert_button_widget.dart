@@ -12,16 +12,16 @@ class ConvertButton extends StatelessWidget {
     return RaisedButton(
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
       color: AppColors.blue400,
-      child: Text(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(50)
+      ),
+      onPressed: () async => convertCurrencies(context),
+      child: const Text(
         "CONVERT",
         style: TextStyle(
           color: AppColors.white,
         ),
       ),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(50)
-      ),
-      onPressed: () async => convertCurrencies(context),
     );
   }
 

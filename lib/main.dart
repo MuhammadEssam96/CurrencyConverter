@@ -6,7 +6,7 @@ import 'package:currency_converter/cubits/currency_cubit.dart';
 import 'package:currency_converter/cubits/result_field_cubit.dart';
 import 'package:currency_converter/ui/screens/home_screen.dart';
 import 'package:currency_converter/ui/screens/splash_screen.dart';
-import 'package:currency_converter/ui/values/themes.dart';
+import 'package:currency_converter/ui/values/themes.dart' as app_themes;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,7 +19,7 @@ void main() {
 class CurrencyConverterApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(AppThemes.systemUiOverlayStyle);
+    SystemChrome.setSystemUIOverlayStyle(app_themes.systemUiOverlayStyle);
     return MultiBlocProvider(
       providers: [
         BlocProvider<NumberFieldCubit>(create: (context) => NumberFieldCubit()),
@@ -31,7 +31,7 @@ class CurrencyConverterApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: "Currency Converter",
-        theme: AppThemes.appTheme,
+        theme: app_themes.appTheme,
         initialRoute: "/SplashScreen",
         routes: {
           "/SplashScreen" : (context) => SplashScreen(),

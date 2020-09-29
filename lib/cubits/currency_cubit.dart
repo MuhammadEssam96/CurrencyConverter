@@ -5,7 +5,6 @@ class OriginalCurrencyCubit extends Cubit<CurrencyState>{
   OriginalCurrencyCubit() : super(CurrencyInitialState());
 
   void pickAnotherCurrency(Currency currency){
-    print("Currency");
     emit(CurrencyNewState(currency));
   }
 }
@@ -14,7 +13,6 @@ class ConvertedCurrencyCubit extends Cubit<CurrencyState> {
   ConvertedCurrencyCubit() : super(CurrencyInitialState());
 
   void pickAnotherCurrency(Currency currency){
-    print("Currency");
     emit(CurrencyNewState(currency));
   }
 }
@@ -25,12 +23,14 @@ abstract class CurrencyState {
 }
 
 class CurrencyInitialState extends CurrencyState{
-  Currency get currency => Currency("EGP");
+  @override
+  Currency get currency => const Currency("EGP");
 }
 
 class CurrencyNewState extends CurrencyState {
   final Currency _currency;
   const CurrencyNewState(this._currency);
 
+  @override
   Currency get currency => _currency;
 }

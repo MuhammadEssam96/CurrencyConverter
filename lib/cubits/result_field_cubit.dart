@@ -1,10 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ResultFieldCubit extends Cubit<ResultFieldState>{
-  ResultFieldCubit() : super(ResultFieldInitialState());
+  ResultFieldCubit() : super(const ResultFieldInitialState());
 
   void showResult({String from, String rate}){
-    double result = double.parse(from) * double.parse(rate);
+    final double result = double.parse(from) * double.parse(rate);
     emit(ResultFieldNewState(result.toStringAsFixed(2)));
   }
 }

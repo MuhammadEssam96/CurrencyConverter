@@ -7,11 +7,12 @@ class ConvertRateAPI {
 }
 
 class CustomException implements Exception {
-  final _message;
-  final _prefix;
+  final String _message;
+  final String _prefix;
 
   CustomException([this._message, this._prefix]);
 
+  @override
   String toString() {
     return "$_prefix$_message";
   }
@@ -22,11 +23,11 @@ class FetchDataException extends CustomException {
 }
 
 class BadRequestException extends CustomException {
-  BadRequestException([message]) : super(message, "Invalid Request: ");
+  BadRequestException([String message]) : super(message, "Invalid Request: ");
 }
 
 class UnauthorisedException extends CustomException {
-  UnauthorisedException([message]) : super(message, "Unauthorised: ");
+  UnauthorisedException([String message]) : super(message, "Unauthorised: ");
 }
 
 class InvalidInputException extends CustomException {
