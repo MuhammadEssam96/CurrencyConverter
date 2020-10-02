@@ -49,7 +49,7 @@ class CurrencySelectorAndNumberFieldWidget extends StatelessWidget {
                 Text(type),
                 const SizedBox(width: 8.0,),
                 CurrencyPickerDropdown(
-                  initialValue: "EG",
+                  initialValue: currencyWidgetType == CurrencyWidgetType.from ? "US" : "EG",
                   itemBuilder: (Country country){
                     final String currencyCode = country.currencyCode;
                     return Row(
