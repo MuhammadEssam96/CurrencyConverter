@@ -26,6 +26,8 @@ class CurrencySelectorAndNumberFieldWidget extends StatelessWidget {
       case CurrencyWidgetType.to:
         type = "To    ";
     }
+    BlocProvider.of<OriginalCurrencyCubit>(context).pickAnotherCurrency(const Currency("USD"));
+    BlocProvider.of<ConvertedCurrencyCubit>(context).pickAnotherCurrency(const Currency("EGP"));
     return Container(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.width * 0.15,
