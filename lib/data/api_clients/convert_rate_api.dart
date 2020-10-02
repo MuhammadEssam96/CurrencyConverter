@@ -1,7 +1,3 @@
-import 'dart:io';
-import 'package:currency_converter/data/models/convert_rate.dart';
-import 'package:bloc/bloc.dart';
-import 'package:currency_converter/cubits/convert_rate_cubit.dart';
 import 'package:currency_converter/data/api_clients/secrets/currency_api_keys.dart';
 import 'package:http/http.dart' as http;
 
