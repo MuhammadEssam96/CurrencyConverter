@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:currency_converter/data/convert_rate_api.dart';
+import 'package:currency_converter/data/api_clients/convert_rate_api.dart';
 import 'package:currency_converter/data/models/convert_rate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
@@ -18,13 +18,7 @@ class ConvertRateCubit extends Cubit<ConvertRateState>{
     emit(ConvertRateLoadingState());
 
     try {
-      await http.get(
-        "https://$host/exchange?q=1.0&from=$fromCurrency&to=$toCurrency",
-        headers: {
-          "x-rapidapi-host" : host,
-          "x-rapidapi-key" : apiKey,
-        }
-      ).then((response) => _response(response));
+      await ConvertRateAPI().getConvertRate(fromCurrency, toCurrency).then((response) => _response(response));
 
     } on SocketException {
       emit(ConvertRateErrorState());

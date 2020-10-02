@@ -1,9 +1,23 @@
-import 'package:currency_converter/data/secrets/currency_api_keys.dart';
+import 'dart:io';
+import 'package:currency_converter/data/models/convert_rate.dart';
+import 'package:bloc/bloc.dart';
+import 'package:currency_converter/cubits/convert_rate_cubit.dart';
+import 'package:currency_converter/data/api_clients/secrets/currency_api_keys.dart';
+import 'package:http/http.dart' as http;
 
 class ConvertRateAPI {
   static const String host = "currency-exchange.p.rapidapi.com";
   static const String apiKey = CurrencyAPIKeys.apiKey;
 
+  Future<http.Response> getConvertRate(String fromCurrency, String toCurrency) async {
+    return http.get(
+      "https://$host/exchange?q=1.0&from=$fromCurrency&to=$toCurrency",
+      headers: {
+        "x-rapidapi-host" : host,
+        "x-rapidapi-key" : apiKey,
+      }
+    );
+  }
 }
 
 class CustomException implements Exception {
