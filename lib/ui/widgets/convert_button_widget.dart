@@ -10,7 +10,7 @@ class ConvertButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RaisedButton(
-      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 24),
       color: AppColors.blue400,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(50)
@@ -27,17 +27,17 @@ class ConvertButton extends StatelessWidget {
 
   Future<void> convertCurrencies(BuildContext context) async {
     final numberFieldCubit = BlocProvider.of<NumberFieldCubit>(context);
-    final convertRateCubitFieldCubit = BlocProvider.of<ConvertRateCubit>(context);
+    final convertRateCubit = BlocProvider.of<ConvertRateCubit>(context);
     final resultFieldCubit = BlocProvider.of<ResultFieldCubit>(context);
 
-    await convertRateCubitFieldCubit.getConvertRate(
+    await convertRateCubit.getConvertRate(
       BlocProvider.of<OriginalCurrencyCubit>(context).state.currency.currencyCode,
       BlocProvider.of<ConvertedCurrencyCubit>(context).state.currency.currencyCode,
     );
 
     resultFieldCubit.showResult(
       from: numberFieldCubit.state.number,
-      rate: convertRateCubitFieldCubit.state.convertRate.convertRate.toString()
+      rate: convertRateCubit.state.convertRate.convertRate.toString()
     );
   }
 }

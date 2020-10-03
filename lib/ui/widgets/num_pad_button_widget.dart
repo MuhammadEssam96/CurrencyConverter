@@ -11,8 +11,8 @@ class NumPadButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 64,
-      height: 64,
+      width: MediaQuery.of(context).size.width * 0.15,
+      height: MediaQuery.of(context).size.width * 0.15,
       child: RawMaterialButton(
         fillColor: text != "<" ? AppColors.white : AppColors.redA700,
         shape: const CircleBorder(),
