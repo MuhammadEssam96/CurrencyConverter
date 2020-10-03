@@ -25,7 +25,3 @@ class ResultFieldNewState extends ResultFieldState {
   @override
   String get number => _number;
 }
-
-class ResultFieldErrorState extends ResultFieldState {
-  const ResultFieldErrorState();
-}

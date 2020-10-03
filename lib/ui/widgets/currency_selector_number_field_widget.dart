@@ -80,7 +80,7 @@ class CurrencySelectorAndNumberFieldWidget extends StatelessWidget {
                   Scaffold.of(context).showSnackBar(const SnackBar(content: Text("Max digit number reached!")));
                 }
               },
-              builder: (context, state){
+              builder: (BuildContext context, NumberFieldState state){
                 String text;
                 if (state is NumberFieldInitialState) {
                   text = "0";
@@ -99,11 +99,9 @@ class CurrencySelectorAndNumberFieldWidget extends StatelessWidget {
                 );
               }
             ) else BlocBuilder<ResultFieldCubit, ResultFieldState>(
-              builder: (context, state){
+              builder: (BuildContext context, ResultFieldState state){
                 String text;
                 if (state is ResultFieldInitialState) {
-                  text = "0";
-                } else if (state is ResultFieldErrorState){
                   text = "0";
                 } else {
                   text = state.number;
