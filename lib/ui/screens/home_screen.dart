@@ -39,7 +39,13 @@ class HomeScreen extends StatelessWidget {
                   const CurrencySelectorAndNumberFieldWidget(CurrencyWidgetType.to),
                   Padding(
                     padding: const EdgeInsets.all(16.0),
-                    child: BlocBuilder<ConvertRateCubit, ConvertRateState>(
+                    child: BlocConsumer<ConvertRateCubit, ConvertRateState>(
+                      listener: (BuildContext context, ConvertRateState state){
+                        if (state is ConvertRateErrorState){
+                          Scaffold.of(context).removeCurrentSnackBar();
+                          Scaffold.of(context).showSnackBar(SnackBar(content: Text(state.message)));
+                        }
+                      },
                       builder: (context, state) {
                         if (state is ConvertRateLoadingState){
                           return const Padding(

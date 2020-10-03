@@ -73,14 +73,18 @@ class CurrencySelectorAndNumberFieldWidget extends StatelessWidget {
                 ),
               ],
             ),
-            if (currencyWidgetType == CurrencyWidgetType.from) BlocBuilder<NumberFieldCubit, NumberFieldState>(
+            if (currencyWidgetType == CurrencyWidgetType.from) BlocConsumer<NumberFieldCubit, NumberFieldState>(
+              listener: (BuildContext context, NumberFieldState state){
+                if (state is NumberFieldMaxLimitReachedError){
+                  Scaffold.of(context).removeCurrentSnackBar();
+                  Scaffold.of(context).showSnackBar(const SnackBar(content: Text("Max digit number reached!")));
+                }
+              },
               builder: (context, state){
                 String text;
                 if (state is NumberFieldInitialState) {
                   text = "0";
-                } else if (state is NumberFieldMaxLimitReachedError){
-                  text = state.number;
-                }  else {
+                } else {
                   text = state.number;
                 }
                 return Expanded(

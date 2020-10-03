@@ -21,7 +21,7 @@ class ConvertRateCubit extends Cubit<ConvertRateState>{
       await ConvertRateAPI().getConvertRate(fromCurrency, toCurrency).then((response) => _response(response));
 
     } on SocketException {
-      emit(ConvertRateErrorState());
+      emit(const ConvertRateErrorState("Error fetching convert rate. Check your internet connection"));
       throw FetchDataException('No Internet connection');
     }
   }
@@ -34,15 +34,15 @@ class ConvertRateCubit extends Cubit<ConvertRateState>{
         emit(ConvertRateNewState(convertRate));
         break;
       case 400:
-        emit(ConvertRateErrorState());
+        emit(const ConvertRateErrorState("Error fetching convert rate. Error 400 Bad Request"));
         throw BadRequestException(response.body.toString());
       case 401:
       case 403:
-        emit(ConvertRateErrorState());
+        emit(const ConvertRateErrorState("Error fetching convert rate. Error 403 Unauthorized"));
         throw UnauthorisedException(response.body.toString());
       case 500:
       default:
-        emit(ConvertRateErrorState());
+        emit(const ConvertRateErrorState("Error fetching convert rate. Error 500 Internal Server Error"));
         throw FetchDataException('Error occurred while Communication with Server with StatusCode : ${response.statusCode}');
     }
   }
@@ -71,6 +71,9 @@ class ConvertRateNewState extends ConvertRateState {
 }
 
 class ConvertRateErrorState extends ConvertRateState{
+  final String message;
+  const ConvertRateErrorState(this.message);
+
   @override
   ConvertRate get convertRate => null;
 }
