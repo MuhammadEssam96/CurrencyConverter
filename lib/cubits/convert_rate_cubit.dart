@@ -1,13 +1,11 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:currency_converter/data/api_clients/convert_rate_api.dart';
 import 'package:currency_converter/data/models/convert_rate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:http/http.dart' as http;
 
 class ConvertRateCubit extends Cubit<ConvertRateState>{
   ConvertRateCubit() : super(const ConvertRateInitialState());
-  static String host = ConvertRateAPI.host;
-  static String apiKey = ConvertRateAPI.apiKey;
 
   Future<void> getConvertRate(String fromCurrency, String toCurrency) async {
     if (fromCurrency == toCurrency){
@@ -18,7 +16,7 @@ class ConvertRateCubit extends Cubit<ConvertRateState>{
     emit(ConvertRateLoadingState());
 
     try {
-      await ConvertRateAPI().getConvertRate(fromCurrency, toCurrency).then((response) => _response(response));
+      await getConvertRateBasedOn(fromCurrency, toCurrency);
 
     } on SocketException {
       emit(const ConvertRateErrorState("Error fetching convert rate. Check your internet connection"));
@@ -26,11 +24,14 @@ class ConvertRateCubit extends Cubit<ConvertRateState>{
     }
   }
 
-  void _response(http.Response response) {
-    switch (response.statusCode) {
+  Future<void> getConvertRateBasedOn(String fromCurrency, String toCurrency) async {
+    final response = await ConvertRateAPI().getRatesBasedOn(fromCurrency);
+
+    switch (response.statusCode){
       case 200:
-        final responseJson = double.parse(response.body);
-        final ConvertRate convertRate = ConvertRate(responseJson);
+        final conversionRates = jsonDecode(response.body) as Map<String, dynamic>;
+        final rate = double.parse(conversionRates["conversion_rates"][toCurrency].toString());
+        final ConvertRate convertRate = ConvertRate(rate);
         emit(ConvertRateNewState(convertRate));
         break;
       case 400:

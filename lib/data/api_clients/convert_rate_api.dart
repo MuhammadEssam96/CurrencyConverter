@@ -2,7 +2,7 @@ import 'package:currency_converter/data/api_clients/secrets/currency_api_keys.da
 import 'package:http/http.dart' as http;
 
 class ConvertRateAPI {
-  static const String host = "currency-exchange.p.rapidapi.com";
+  static const String host = "v6.exchangerate-api.com";
   static const String apiKey = CurrencyAPIKeys.apiKey;
 
   Future<http.Response> getConvertRate(String fromCurrency, String toCurrency) async {
@@ -12,6 +12,12 @@ class ConvertRateAPI {
         "x-rapidapi-host" : host,
         "x-rapidapi-key" : apiKey,
       }
+    );
+  }
+
+  Future<http.Response> getRatesBasedOn(String fromCurrency) async {
+    return http.get(
+      "https://$host/v6/$apiKey/latest/$fromCurrency"
     );
   }
 }
