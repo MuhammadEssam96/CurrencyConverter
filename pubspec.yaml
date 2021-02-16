@@ -4,7 +4,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: "2.10.4"
+  sdk: "2.10.5"
 
 dependencies:
   flutter:
@@ -14,8 +14,8 @@ dependencies:
 
   currency_pickers: ^1.0.6
 
-  bloc: ^6.0.3
-  flutter_bloc: ^6.0.5
+  bloc: ^6.1.1
+  flutter_bloc: ^6.1.2
 
   auto_size_text: ^2.1.0
 
